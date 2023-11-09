@@ -258,9 +258,34 @@ export const update = mutation({
     if (existingDocument.userId !== userId) throw new Error("Non autorisé");
 
     const document = await ctx.db.patch(args.id, {
-      ...rest
+      ...rest,
     });
 
     return document;
-  }
+  },
+});
+
+export const removeIcon = mutation({
+  args: {
+    id: v.id("documents"),
+  },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+
+    if (!identity) throw new Error("Non authentifié");
+
+    const userId = identity.subject;
+
+    const existingDocument = await ctx.db.get(args.id);
+
+    if (!existingDocument) throw new Error("Non trouvé");
+
+    if (existingDocument.userId !== userId) throw new Error("Non autorisé");
+
+    const document = await ctx.db.patch(args.id, {
+      icon: undefined,
+    });
+
+    return document;
+  },
 });
