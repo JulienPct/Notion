@@ -67,6 +67,8 @@ export const Item = ({
       success: "Note déplacée vers la corbeille !",
       error: "Échec de l'archivage de la note.",
     });
+
+    router.push("/documents");
   };
 
   const handleExpand = (

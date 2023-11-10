@@ -32,8 +32,8 @@ export const Menu = ({ documentId }: MenuProps) => {
     const promise = archive({ id: documentId });
 
     toast.promise(promise, {
-      loading: "Archivage de la note...",
-      success: "Note archivée !",
+      loading: "Déplacement vers la corbeille...",
+      success: "Note déplacée vers la corbeille !",
       error: "Échec de l'archivage de la note.",
     });
 
