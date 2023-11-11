@@ -8,13 +8,16 @@ import { toast } from "sonner";
 
 import { api } from "@/convex/_generated/api";
 import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
 
 const DocumentsPage = () => {
   const { user } = useUser();
   const create = useMutation(api.documents.create);
+  const router = useRouter();
 
   const onCreate = () => {
-    const promise = create({ title: "Sans titre" });
+    const promise = create({ title: "Sans titre" })
+    .then((documentId) => router.push(`/documents/${documentId}`));
 
     toast.promise(promise, {
       loading: "Création d'une nouvelle note...",

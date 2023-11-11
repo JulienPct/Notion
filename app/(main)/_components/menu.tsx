@@ -29,15 +29,15 @@ export const Menu = ({ documentId }: MenuProps) => {
   const archive = useMutation(api.documents.archive);
 
   const onArchive = () => {
-    const promise = archive({ id: documentId });
+    const promise = archive({ id: documentId }).then(() =>
+      router.push("/documents")
+    );
 
     toast.promise(promise, {
       loading: "Déplacement vers la corbeille...",
       success: "Note déplacée vers la corbeille !",
       error: "Échec de l'archivage de la note.",
     });
-
-    router.push("/documents");
   };
 
   return (
@@ -67,7 +67,5 @@ export const Menu = ({ documentId }: MenuProps) => {
 };
 
 Menu.Skeleton = function MenuSkeleton() {
-    return (
-        <Skeleton className="h-10 w-10" />
-    )
-}
+  return <Skeleton className="h-10 w-10" />;
+};
